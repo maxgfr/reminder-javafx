@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainController">
+    <center>
+        
+        <SplitPane dividerPositions="0.20656370656370657">
+            
+            <fx:define>
+                <Integer fx:id="moins1" fx:value="-1" />
+            </fx:define>
+            
+            
+            <items>      
+              <JFXListView fx:id="listeDesElements" items="${controller.leModele.lesElements}" />
+              
+                <BorderPane>
+                    
+                 <top>
+                    <JFXTextField fx:id="title" BorderPane.alignment="CENTER" disable="${listeDesElements.selectionModel.selectedIndex == moins1}" />
+                 </top>
+                 
+                 <center>
+                    <JFXTextArea fx:id="detail" prefHeight="655.0" prefWidth="538.0" wrapText="true" BorderPane.alignment="CENTER" disable="${listeDesElements.selectionModel.selectedIndex == moins1}" />
+                 </center>
+                 
+                 <bottom>
+                    <VBox BorderPane.alignment="CENTER">
+                       <children>
+                           
+                            <AnchorPane>
+                                <children>
+                                    <JFXDatePicker fx:id="dateSelected" defaultColor="#2196f3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>
+                            
+                            <AnchorPane>
+                                <children>
+                                    <JFXDatePicker fx:id="timeSelected" defaultColor="#2196f3" showTime="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>                      
+                           
+                            <AnchorPane>
+                                <children>
+                                    <JFXButton disable="${listeDesElements.selectionModel.selectedIndex == moins1}" fx:id="notifButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNotificationButton" prefWidth="400.0" text="Notification" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>
+                            
+                            <AnchorPane>
+                                <children>
+                                    <JFXButton fx:id="createButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onCreateButton" prefWidth="400.0" text="Ajouter" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>
+                            
+                            
+                            <AnchorPane>
+                                <children>
+                                    <JFXButton disable="${listeDesElements.selectionModel.selectedIndex == moins1}" fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteButton" prefWidth="400.0" text="Supprimer" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>                          
+                            
+                            <AnchorPane>
+                              <children>
+                                  <JFXButton disable="${listeDesElements.selectionModel.selectedIndex == moins1}" fx:id="undo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onUndo" prefWidth="400.0" text="Undo" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              </children>
+                            </AnchorPane>
+
+                            
+                            <AnchorPane>
+                              <children>
+                                  <JFXButton disable="${listeDesElements.selectionModel.selectedIndex == moins1}" fx:id="redo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRedo" prefWidth="400.0" text="Redo" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              </children>
+                            </AnchorPane>
+                           
+                       </children>   
+                    </VBox>
+                 </bottom>
+                 
+                </BorderPane>
+            </items>
+            
+        </SplitPane>
+        
+    </center>
+</BorderPane>

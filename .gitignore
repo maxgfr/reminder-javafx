@@ -1,3 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+*/bin
+*bin
+*.bin
+*bin
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

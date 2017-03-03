@@ -5,19 +5,16 @@
  */
 package modele;
 
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import metier.Element;
+import metier.Element_Serializable;
 
 /**
  *
@@ -25,34 +22,55 @@ import metier.Element;
  */
 public class GestionnaireSauvegarde {
 
-	public static ObservableList<Element> charger(Path file) throws FileNotFoundException, IOException, ClassNotFoundException {
-            try {
-                InputStream in = Files.newInputStream(file);
-                ObjectInputStream ois = new ObjectInputStream(in);
-                List<Element> list = (List<Element>) ois.readObject() ;
-                return FXCollections.observableList(list);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public static void serialize (List<Element_Serializable> elmt) {
+	try {
+            FileOutputStream fichier;
+            fichier = new FileOutputStream("data.ser");
+            try (ObjectOutputStream oos = new ObjectOutputStream(fichier)) {
+                oos.writeObject(elmt);
+                oos.flush();
+                fichier.close();
             }
-            return FXCollections.emptyObservableList();
-	}
-	
-	public static void sauvegarder(ObservableList<Element> ol, Path file) throws FileNotFoundException, IOException {
-            try {
-                // write object to file
-                OutputStream fos = Files.newOutputStream(file);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(new ArrayList<Element>(ol));
-                oos.close();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.getMessage();
+        }
+    }
+    
+    public static List<Element_Serializable> deSerialize () {
+       try {
+            FileInputStream fichier = new FileInputStream("data.ser");
+            ObjectInputStream ois = new ObjectInputStream(fichier);
+            List<Element_Serializable> x = (List<Element_Serializable>) ois.readObject();
+            return x;
+        } catch (IOException | ClassNotFoundException e  ) {
+            e.getMessage();
+        }
+       return null;
+    }
+    
+    public static void sauvegarder (ObservableList<Element> me) {
+        int size = me.size();
+        List<Element_Serializable> li = new ArrayList<>();
+        for (int i=0; i<size; ++i){
+            Element e = me.get(i);
+            Element_Serializable elmt = new Element_Serializable(e.getName(),e.getTexte(),e.getDate(),e.getTime(),e.getBool());
+            li.add(elmt);
+        }
+        serialize(li);
+    }
+    
+    
+    public static List<Element> charger () {
+        List<Element> x = new ArrayList<>();
+        List<Element_Serializable> li = deSerialize();
+        if (li != null){
+            for (Element_Serializable elmt : li){
+            Element e = new Element(elmt.getName(),elmt.getTexte(),elmt.getDate(),elmt.getTime(),elmt.getBool(),0);
+            x.add(e);
             }
-
-	}
+        }
+        return x;
+    }
         
 }

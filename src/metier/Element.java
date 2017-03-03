@@ -5,7 +5,6 @@
  */
 package metier;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.beans.property.BooleanProperty;
@@ -21,7 +20,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author maxime
  */
-public class Element implements Serializable{
+public class Element {
     
     private final StringProperty name = new SimpleStringProperty();
         public String getName() { return name.get();}
@@ -62,5 +61,6 @@ public class Element implements Serializable{
         bool.set(notif);
         this.nbSauv.set(nbSauv);
     }
+
     
 }

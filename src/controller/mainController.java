@@ -8,21 +8,17 @@ package controller;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -77,10 +73,7 @@ public class mainController {
 
         dateSelected.setValue(LocalDate.now());
         timeSelected.setTime(LocalTime.now());
-        
-//        chargerSerial();
-        
-        
+
         listeDesElements.setCellFactory((param) -> {
             return new ListCell<Element>(){
                @Override
@@ -130,6 +123,8 @@ public class mainController {
                 });         
             }
         });
+        
+        chargerSerial();
         
     }
     
@@ -222,12 +217,9 @@ public class mainController {
             }
         };
          
-        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                commandNotif(titre, msg);
-                listeDesElements.getItems().remove(index);
-            }
+        sleeper.setOnSucceeded((WorkerStateEvent event) -> {
+            commandNotif(titre, msg);
+            listeDesElements.getItems().remove(index);
         });
         
         new Thread(sleeper).start();   
@@ -240,26 +232,17 @@ public class mainController {
     }
     
     private void chargerSerial () {
-        Path file = Paths.get("fich.bin");
-        ModeleElement me = new ModeleElement();
-        try {
-            me.setLesElements(GestionnaireSauvegarde.charger(file));
-        } catch (IOException e) {
-            e.getMessage();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+        List<Element> li = new ArrayList<>();
+        li = GestionnaireSauvegarde.charger();
+        for (Element e : li){
+            listeDesElements.getItems().add(e); 
         }
-        ObjectProperty<ModeleElement> yo = new SimpleObjectProperty<>(me);     
+           
     }
     
     private void sauvSerial () {
-        Path file = Paths.get("fich.bin");
         ObservableList<Element> me = leModele.get().getLesElements();
-        try {
-            GestionnaireSauvegarde.sauvegarder(me,file);
-        } catch (IOException ex) {
-            Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GestionnaireSauvegarde.sauvegarder(me);
     }
     
     private Optional<ButtonType> showMessage(Alert.AlertType type,String header,String message,ButtonType... lesBoutonsDifferents){

@@ -20,8 +20,6 @@ import metier.Element;
 public class ModeleElement implements Serializable {
     private final ObservableList<Element> lesElementsObservables = FXCollections.observableArrayList();
     
-    private  static  final  long serialVersionUID =  1350092881346723535L;
-    
     private final ListProperty<Element> lesElements = new SimpleListProperty<>(lesElementsObservables);
         public ObservableList<Element> getLesElements() {return lesElements.get();}
         public void setLesElements(ObservableList<Element> value) {lesElements.set(value);}

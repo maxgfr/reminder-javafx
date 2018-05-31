@@ -1,5 +1,5 @@
 # ReminderMax
-Reminder who let an user to create his own alert | Material design
+Reminder which lets an user to create his own alert | Material design
 
 The program was written in Java FXML
 

@@ -5,18 +5,18 @@ The program was written in Java FXML
 
 ## The application
 
-![alt text](https://github.com/maxgfr/RemonderMax/blob/master/screen/capture1.png)
+![alt text](https://github.com/maxgfr/ReminderMax/blob/master/screen/capture1.png)
 
 ## Design Pattern used
 
 ### Memento pattern
 
-![alt text](https://github.com/maxgfr/RemonderMax/blob/master/screen/memento.gif)
+![alt text](https://github.com/maxgfr/ReminderMax/blob/master/screen/memento.gif)
 
 ### Command pattern
 
-![alt text](https://github.com/maxgfr/RemonderMax/blob/master/screen/command.png)
+![alt text](https://github.com/maxgfr/ReminderMax/blob/master/screen/command.png)
 
-### Singleton pattern used by class ’Converter‘
+### Singleton pattern used by class `Converter`
 
-![alt text](https://github.com/maxgfr/RemonderMax/blob/master/screen/singleton.png)
+![alt text](https://github.com/maxgfr/ReminderMax/blob/master/screen/singleton.png)
